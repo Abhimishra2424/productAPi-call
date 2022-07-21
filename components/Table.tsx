@@ -9,8 +9,10 @@ const Table = () => {
   const [product, setProduct] = React.useState([]);
   const [selected, setSelected] = React.useState({});
   const [show, setShow] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
+    setLoading(true);
     const getallProduct = async () => {
       let { data } = await axios.get(
         'https://62d8195a9c8b5185c782fec4.mockapi.io/product'
@@ -18,6 +20,7 @@ const Table = () => {
       setProduct(data);
     };
     getallProduct();
+    setLoading(false);
   }, [show]);
 
   function hendleEdit(val: {}) {
@@ -39,6 +42,9 @@ const Table = () => {
       setProduct(getALlProduct.data);
     }
   };
+
+  if (loading) return 'loading';
+
   return (
     <div>
       <ToastContainer />
