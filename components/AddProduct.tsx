@@ -3,13 +3,12 @@ import * as React from 'react';
 import Container from 'react-bootstrap/cjs/Container';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddProduct = () => {
   const [product, setProduct] = React.useState('');
   const [price, setPrice] = React.useState('');
-
-  const navigate = useNavigate();
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
@@ -24,12 +23,17 @@ const AddProduct = () => {
     );
 
     if (saveProduct.data) {
-      navigate('/', { replace: true });
+      toast.success('Success!', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setPrice('');
+      setProduct('');
     }
   };
 
   return (
     <Container>
+      <ToastContainer />
       <Form onSubmit={(e) => handleAddProduct(e)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Product</Form.Label>

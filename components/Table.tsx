@@ -2,6 +2,8 @@ import axios from 'axios';
 import React = require('react');
 import Button from 'react-bootstrap/esm/Button';
 import ModelWithForm from './ModelWithForm';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Table = () => {
   const [product, setProduct] = React.useState([]);
@@ -31,11 +33,15 @@ const Table = () => {
       let getALlProduct = await axios.get(
         'https://62d8195a9c8b5185c782fec4.mockapi.io/product'
       );
+      toast.success('Deleted!', {
+        position: toast.POSITION.TOP_CENTER,
+      });
       setProduct(getALlProduct.data);
     }
   };
   return (
     <div>
+      <ToastContainer />
       <table>
         <tr>
           <th>ID</th>
